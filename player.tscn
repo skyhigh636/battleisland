@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://dlbilff4fd2en"]
+
+[ext_resource type="Texture2D" uid="uid://ym0yuq7wh3vy" path="res://sprites/PC _ Computer - Cave Story - Friendly Characters - Quote & Items.png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://bi6kb5rkrfsvc" path="res://player.gd" id="1_hqtel"]
+[ext_resource type="Script" uid="uid://c851k2qtb44hy" path="res://state_machine.gd" id="3_sweqy"]
+[ext_resource type="Script" uid="uid://dy2fnxdxsoc53" path="res://walk.gd" id="4_2hs0m"]
+[ext_resource type="Script" uid="uid://dshgetogvlplh" path="res://idle.gd" id="5_sweqy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onrkg"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(67, 120, 17, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3pqv"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(84, 120, 17, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqtel"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(100, 120, 17, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sweqy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3pqv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqtel")
+}],
+"loop": true,
+"name": &"left_walk_anim",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hs0m"]
+size = Vector2(14.5, 16)
+
+[node name="Player" type="CharacterBody2D" groups=["PLayer"]]
+position = Vector2(130, 43)
+script = ExtResource("1_hqtel")
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." groups=["PLayer"]]
+texture_filter = 1
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_sweqy")
+animation = &"left_walk_anim"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.25, 2)
+shape = SubResource("RectangleShape2D_2hs0m")
+
+[node name="State machine" type="Node2D" parent="."]
+position = Vector2(1, 1)
+script = ExtResource("3_sweqy")
+
+[node name="Walk" type="Node2D" parent="State machine"]
+position = Vector2(-1, 1)
+script = ExtResource("4_2hs0m")
+
+[node name="Idle" type="Node2D" parent="State machine"]
+position = Vector2(-3, 0)
+script = ExtResource("5_sweqy")
+
+[node name="Animation" type="AnimationPlayer" parent="."]
