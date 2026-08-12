@@ -5,7 +5,7 @@ movement, nothing of note
 """
 const SPEED: float = 350.0
 func enter() -> void:
-	player.animation.play(walk_anim)
+	player.sprite.play("default")
 	
 func process_physics(delta: float) -> State:
 	super.process_physics(delta)
@@ -36,6 +36,10 @@ func get_move_dir() -> float:
 func do_move(move_dir: float) -> void:
 	player.velocity.x = move_toward(player.velocity.x, move_dir * SPEED, SPEED  * 0.15)
 	if move_dir < 0:
-		player.sprite.flip_h = true
-	elif move_dir > 0:
 		player.sprite.flip_h = false
+		if player.sprite.animation != left_walk_anim or not player.sprite.is_playing():
+			player.sprite.play(left_walk_anim)
+	elif move_dir > 0:
+		player.sprite.flip_h = true
+		if player.sprite.animation != "default" or not player.sprite.is_playing():
+			player.sprite.play("default")

@@ -1,7 +1,7 @@
 class_name StateMachine
 """
 who knew state machines were actually applicable in code..
-
+shoutout Edgar
 State machine initialization
 this file handles all the transitions to differing states,
 the train depot that sends the trains.

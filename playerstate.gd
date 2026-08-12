@@ -10,24 +10,17 @@ the humble missing condition in Playerstate.gd:
 	THE CENTRE OF EVERY NEW ACTION AND STATE
 """
 #Animations
-var idle_anim: String = "Idle"
-var walk_anim: String = "Walk"
+var idle_anim: String = "idle_anim"
+var left_walk_anim: String = "left_walk_anim"
 var jump_anim: String = "Jump"
-var jab_anim: String = "Jab"
-var straight_anim: String = "Straight"
-var upper_anim: String = "Upper"
-var pain_anim: String = "pain"
+
 
 #STATES
 @export_group("States")
 @export var idle_state: PlayerState
 @export var walk_state: PlayerState
 @export var jump_state: PlayerState
-@export var fall_state: PlayerState
-@export var jab_state: PlayerState
-@export var straight_state: PlayerState
-@export var upper_state: PlayerState
-@export var pain_state: PlayerState
+
 
 #inputs
 var movement_key: String = "Movement"
@@ -53,7 +46,7 @@ func _ready():
 					idle_state = child
 				elif child is PlayerWalkState and walk_state == null:
 					walk_state = child
-					straight_state = child
+					#straight_state = child
 					## Come back to later
 #				elif child is PlayerUpperState and upper_state == null: 
 #					upper_state = child
