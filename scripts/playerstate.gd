@@ -13,6 +13,7 @@ the humble missing condition in Playerstate.gd:
 var idle_anim: String = "idle_anim"
 var left_walk_anim: String = "left_walk_anim"
 var jump_anim: String = "Jump"
+var right_walk_anim: String = "right_walk_anim"
 
 
 #STATES
@@ -46,8 +47,8 @@ func _ready():
 					idle_state = child
 				elif child is PlayerWalkState and walk_state == null:
 					walk_state = child
-					#straight_state = child
-					## Come back to later
+				elif child is PlayerJumpState and jump_state == null:
+					jump_state = child
 #				elif child is PlayerUpperState and upper_state == null: 
 #					upper_state = child
 
