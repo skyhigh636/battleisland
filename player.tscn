@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://dlbilff4fd2en"]
 
 [ext_resource type="Texture2D" uid="uid://ym0yuq7wh3vy" path="res://sprites/PC _ Computer - Cave Story - Friendly Characters - Quote & Items.png" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://bi6kb5rkrfsvc" path="res://player.gd" id="1_hqtel"]
-[ext_resource type="Script" uid="uid://c851k2qtb44hy" path="res://state_machine.gd" id="3_sweqy"]
-[ext_resource type="Script" uid="uid://dy2fnxdxsoc53" path="res://walk.gd" id="4_2hs0m"]
-[ext_resource type="Script" uid="uid://dshgetogvlplh" path="res://idle.gd" id="5_sweqy"]
+[ext_resource type="Script" uid="uid://bi6kb5rkrfsvc" path="res://scripts/player.gd" id="1_hqtel"]
+[ext_resource type="Script" uid="uid://c851k2qtb44hy" path="res://scripts/state_machine.gd" id="3_sweqy"]
+[ext_resource type="Script" uid="uid://dy2fnxdxsoc53" path="res://scripts/walk.gd" id="4_2hs0m"]
+[ext_resource type="Script" uid="uid://dshgetogvlplh" path="res://scripts/idle.gd" id="5_sweqy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_onrkg"]
 atlas = ExtResource("1_4flbx")
@@ -46,22 +46,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hs0m"]
 size = Vector2(14.5, 16)
 
-[sub_resource type="Animation" id="Animation_sweqy"]
-resource_name = "left_walk_anim"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.12767567, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 0, 0, 0, 1, 1, 2, 2, 2, 0, 0, 0]
-}
-
 [sub_resource type="Animation" id="Animation_2hs0m"]
 length = 0.001
 tracks/0/type = "value"
@@ -91,6 +75,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_sweqy"]
+resource_name = "left_walk_anim"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.12767567, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 0, 0, 1, 1, 2, 2, 2, 0, 0, 0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1jxqw"]
