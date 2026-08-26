@@ -1,8 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://dlbilff4fd2en"]
+[gd_scene load_steps=14 format=3 uid="uid://dlbilff4fd2en"]
 
 [ext_resource type="Texture2D" uid="uid://ym0yuq7wh3vy" path="res://sprites/PC _ Computer - Cave Story - Friendly Characters - Quote & Items.png" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://bi6kb5rkrfsvc" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://bi6kb5rkrfsvc" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://81homy33w7sr" path="res://sprites/quote.png" id="3_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://dpdigkyexo32r" path="res://sprites/Arms.png" id="4_hqtel"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b26j0"]
+atlas = ExtResource("3_i3pqv")
+region = Rect2(101, 23, 16, 17)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2hs0m"]
 atlas = ExtResource("1_4flbx")
@@ -22,6 +27,14 @@ region = Rect2(100, 138, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sweqy"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b26j0")
+}],
+"loop": true,
+"name": &"air_down",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2hs0m")
@@ -53,22 +66,41 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_sweqy"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(48, 16, 24, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2hs0m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sweqy")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hs0m"]
 size = Vector2(11, 13)
 
 [node name="Player" type="CharacterBody2D" groups=["PLayer"]]
+z_index = 1
 position = Vector2(130, 41)
 script = ExtResource("1_onrkg")
-metadata/_edit_group_ = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." groups=["PLayer"]]
 texture_filter = 1
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_sweqy")
-animation = &"jump"
+animation = &"air_down"
+
+[node name="gun" type="AnimatedSprite2D" parent="Sprite"]
+sprite_frames = SubResource("SpriteFrames_2hs0m")
+animation = &"right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, 2)
+position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_2hs0m")
 
 [node name="Camera2D" type="Camera2D" parent="."]

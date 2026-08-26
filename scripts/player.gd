@@ -6,6 +6,8 @@ const JUMP_VELOCITY = -400.0
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+@onready var gun: AnimatedSprite2D = $Sprite/gun
+
 @onready var sprite: AnimatedSprite2D = $Sprite
 
 func _physics_process(delta: float) -> void:
@@ -23,17 +25,24 @@ func _physics_process(delta: float) -> void:
 	
 	if direction > 0:
 		sprite.flip_h = false
+		gun.position.x = abs(gun.position.x) # keep on right side
+		gun.flip_h = false
+		
 	elif direction < 0:
 		sprite.flip_h = true
-	
+		gun.position.x = -abs(gun.position.x) # move to left side
+		gun.flip_h = true
+
 	if is_on_floor():
 		if direction == 0:
 			sprite.play("default")
 		else:
 			sprite.play("walk")
 	else:
-
 		sprite.play("jump")
+		if Input.is_action_pressed("Down"):
+			sprite.play("air_down")
+		
 	
 	if direction:
 		velocity.x = direction * SPEED
