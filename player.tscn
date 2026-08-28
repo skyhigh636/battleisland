@@ -68,7 +68,7 @@ animations = [{
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sweqy"]
 atlas = ExtResource("4_hqtel")
-region = Rect2(48, 16, 24, 16)
+region = Rect2(54, 22, 17, 12)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2hs0m"]
 animations = [{
@@ -82,20 +82,22 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hs0m"]
-size = Vector2(11, 13)
+size = Vector2(12, 10.5)
 
 [node name="Player" type="CharacterBody2D" groups=["PLayer"]]
 z_index = 1
-position = Vector2(130, 41)
+position = Vector2(124, 47)
 script = ExtResource("1_onrkg")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." groups=["PLayer"]]
 texture_filter = 1
-position = Vector2(1, 0)
+position = Vector2(4.7683716e-06, -5.9604645e-07)
+scale = Vector2(1.1875002, 0.87500006)
 sprite_frames = SubResource("SpriteFrames_sweqy")
-animation = &"air_down"
 
 [node name="gun" type="AnimatedSprite2D" parent="Sprite"]
+position = Vector2(6.0301304, 1.7692308)
+scale = Vector2(0.7451191, 0.70512825)
 sprite_frames = SubResource("SpriteFrames_2hs0m")
 animation = &"right"
 
@@ -104,5 +106,9 @@ position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_2hs0m")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-2, 1)
 zoom = Vector2(1.915, 1.915)
+process_callback = 0
 position_smoothing_enabled = true
+drag_left_margin = 0.0
+drag_top_margin = 0.0
