@@ -1,9 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dlbilff4fd2en"]
+[gd_scene format=3 uid="uid://dlbilff4fd2en"]
 
 [ext_resource type="Texture2D" uid="uid://ym0yuq7wh3vy" path="res://sprites/PC _ Computer - Cave Story - Friendly Characters - Quote & Items.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bi6kb5rkrfsvc" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://81homy33w7sr" path="res://sprites/quote.png" id="3_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://dpdigkyexo32r" path="res://sprites/Arms.png" id="4_hqtel"]
+[ext_resource type="Texture2D" uid="uid://dtb6xjy40lqpw" path="res://sprites/Bullet.png" id="5_sweqy"]
+[ext_resource type="PackedScene" uid="uid://dbhay18ashx50" path="res://bullet.tscn" id="6_2hs0m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b26j0"]
 atlas = ExtResource("3_i3pqv")
@@ -31,7 +33,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b26j0")
 }],
-"loop": true,
+"loop": 1,
 "name": &"air_down",
 "speed": 5.0
 }, {
@@ -39,7 +41,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2hs0m")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -47,7 +49,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hqtel")
 }],
-"loop": true,
+"loop": 1,
 "name": &"jump",
 "speed": 9.0
 }, {
@@ -61,7 +63,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dw050")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 10.0
 }]
@@ -76,39 +78,61 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sweqy")
 }],
-"loop": true,
+"loop": 1,
 "name": &"right",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7ghd"]
+atlas = ExtResource("5_sweqy")
+region = Rect2(63, 16, 19, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hqtel"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7ghd")
+}],
+"loop": 1,
+"name": &"default",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hs0m"]
 size = Vector2(12, 10.5)
 
-[node name="Player" type="CharacterBody2D" groups=["PLayer"]]
+[node name="Player" type="CharacterBody2D" unique_id=46517785 groups=["PLayer"]]
 z_index = 1
 position = Vector2(124, 47)
 script = ExtResource("1_onrkg")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="." groups=["PLayer"]]
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1649034671 groups=["PLayer"]]
 texture_filter = 1
 position = Vector2(4.7683716e-06, -5.9604645e-07)
 scale = Vector2(1.1875002, 0.87500006)
 sprite_frames = SubResource("SpriteFrames_sweqy")
 
-[node name="gun" type="AnimatedSprite2D" parent="Sprite"]
+[node name="gun" type="AnimatedSprite2D" parent="Sprite" unique_id=1467599352]
 position = Vector2(6.0301304, 1.7692308)
 scale = Vector2(0.7451191, 0.70512825)
 sprite_frames = SubResource("SpriteFrames_2hs0m")
 animation = &"right"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Bullet" type="AnimatedSprite2D" parent="Sprite/gun" unique_id=56812093]
+visible = false
+position = Vector2(2.078614, -0.8883111)
+sprite_frames = SubResource("SpriteFrames_hqtel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=86534766]
 position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_2hs0m")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-2, 1)
-zoom = Vector2(1.915, 1.915)
+[node name="Camera2D" type="Camera2D" parent="." unique_id=900111157]
+zoom = Vector2(3, 3)
 process_callback = 0
 position_smoothing_enabled = true
 drag_left_margin = 0.0
 drag_top_margin = 0.0
+
+[node name="Bullet" parent="." unique_id=587947668 instance=ExtResource("6_2hs0m")]
+position = Vector2(30, 13)

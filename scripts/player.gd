@@ -1,8 +1,8 @@
 extends CharacterBody2D
+@export var Bullet : PackedScene
 
-
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const SPEED = 200.0
+const JUMP_VELOCITY = -300.0
 var start_pos: Vector2
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -11,6 +11,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 
+var facing_left := false
 
 var gun_start_pos: Vector2
 
@@ -18,14 +19,12 @@ func _ready() -> void:
 	gun_start_pos = gun.position
 
 func reset_gun() -> void: 
-	#resets gun to its original position, however does this regardless of if player is facing left, 
-	#figure that out later
-	#or don't
-	#let it ride
-	
 	gun.position = gun_start_pos
+	if facing_left:
+		gun.position.x = -abs(gun_start_pos.x)
+	else:
+		gun.position.x = abs(gun_start_pos.x)
 	gun.rotation_degrees = 0
-
 
 func _process(delta:float) -> void:
 	if is_on_floor():
@@ -37,7 +36,7 @@ func _process(delta:float) -> void:
 			sprite.play("air_down")
 			gun.rotation_degrees = 90
 			gun.position.y = +10
-			gun.position.x = -1
+			gun.position.x = -0.5
 		elif Input.is_action_just_released("Down"):
 			reset_gun()
 			sprite.play("jump")
@@ -56,14 +55,16 @@ func _physics_process(delta: float) -> void:
 
 	var direction := Input.get_axis("Left", "Right")
 	if direction > 0:
+		facing_left = false
 		sprite.flip_h = false
-		gun.position.x = abs(gun.position.x) # keep on right side
 		gun.flip_h = false
-		
+		gun.position.x = abs(gun_start_pos.x)
+
 	elif direction < 0:
+		facing_left = true
 		sprite.flip_h = true
-		gun.position.x = -abs(gun.position.x) # move to left side
 		gun.flip_h = true
+		gun.position.x = -abs(gun_start_pos.x)
 
 	if is_on_floor():
 		if direction == 0:
@@ -71,7 +72,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			sprite.play("walk")
 		
-	
+	if Input.is_action_just_pressed("Shoot"):
+		print("hello")
 	if direction:
 		velocity.x = direction * SPEED
 	else:
