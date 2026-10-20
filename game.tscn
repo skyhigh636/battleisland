@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8rgil5fssdve"]
+[gd_scene format=3 uid="uid://b8rgil5fssdve"]
 
 [ext_resource type="PackedScene" uid="uid://dlbilff4fd2en" path="res://player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://ciiliu8vqdm7n" path="res://level.tscn" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://bi6kb5rkrfsvc" path="res://scripts/player.gd" id="3_feb5d"]
 
-[node name="Game" type="Node"]
+[node name="Game" type="Node" unique_id=476037486]
 
-[node name="Player" parent="." instance=ExtResource("1_80nbo")]
-position = Vector2(153, 168)
+[node name="Level" parent="." unique_id=1453367352 instance=ExtResource("2_e2o6t")]
 
-[node name="Level" parent="." instance=ExtResource("2_e2o6t")]
+[node name="Player" parent="." unique_id=587947668 groups=["PLayer"] instance=ExtResource("1_80nbo")]
+z_index = 1
+position = Vector2(152, 170)
+input_pickable = false
+script = ExtResource("3_feb5d")
+Bullet = null

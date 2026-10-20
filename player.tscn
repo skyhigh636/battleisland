@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://bi6kb5rkrfsvc" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://81homy33w7sr" path="res://sprites/quote.png" id="3_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://dpdigkyexo32r" path="res://sprites/Arms.png" id="4_hqtel"]
-[ext_resource type="Texture2D" uid="uid://dtb6xjy40lqpw" path="res://sprites/Bullet.png" id="5_sweqy"]
 [ext_resource type="PackedScene" uid="uid://dbhay18ashx50" path="res://bullet.tscn" id="6_2hs0m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b26j0"]
@@ -83,21 +82,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n7ghd"]
-atlas = ExtResource("5_sweqy")
-region = Rect2(63, 16, 19, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_hqtel"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n7ghd")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
-}]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hs0m"]
 size = Vector2(12, 10.5)
 
@@ -118,11 +102,6 @@ scale = Vector2(0.7451191, 0.70512825)
 sprite_frames = SubResource("SpriteFrames_2hs0m")
 animation = &"right"
 
-[node name="Bullet" type="AnimatedSprite2D" parent="Sprite/gun" unique_id=56812093]
-visible = false
-position = Vector2(2.078614, -0.8883111)
-sprite_frames = SubResource("SpriteFrames_hqtel")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=86534766]
 position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_2hs0m")
@@ -135,4 +114,4 @@ drag_left_margin = 0.0
 drag_top_margin = 0.0
 
 [node name="Bullet" parent="." unique_id=587947668 instance=ExtResource("6_2hs0m")]
-position = Vector2(30, 13)
+position = Vector2(17, 2)
