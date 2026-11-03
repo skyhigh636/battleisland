@@ -1,16 +1,16 @@
 class_name Player
 extends CharacterBody2D
-@export var Bullet : PackedScene
 
 const SPEED = 200.0
 const JUMP_VELOCITY = -300.0
 var start_pos: Vector2
 
+var bullet_scene: PackedScene = preload("res://Scenes/bullet.tscn")
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var gun: AnimatedSprite2D = $Sprite/gun
 @onready var sprite: AnimatedSprite2D = $Sprite
-@onready var bullet: Area2D = $Bullet
+#@onready var bullet: Area2D = $Bullet
 
 
 var facing_left := false
@@ -61,7 +61,26 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 
 	if Input.is_action_just_pressed("Shoot"):
-		bullet.gun_shoot()
+		var new_bullet := bullet_scene.instantiate()
+		
+		get_tree().current_scene.add_child(new_bullet)
+		new_bullet.global_position = gun.global_position
+		
+		#shoot direction
+		var shoot_direction := Vector2.ZERO
+		if Input.is_action_just_pressed("Down"):
+			shoot_direction = Vector2.DOWN
+			print(Vector2.DOWN)
+		elif Input.is_action_just_pressed("Up"):
+			shoot_direction = Vector2.UP
+			print(Vector2.UP)
+		elif facing_left:
+			shoot_direction = Vector2.LEFT
+			print(Vector2.LEFT)
+		elif facing_left ==false:
+			shoot_direction = Vector2.RIGHT
+			print(Vector2.RIGHT)
+		new_bullet.launch(shoot_direction)
 		
 	var direction := Input.get_axis("Left", "Right")
 	

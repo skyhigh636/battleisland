@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dbhay18ashx50"]
 
-[ext_resource type="Texture2D" uid="uid://dtb6xjy40lqpw" path="res://sprites/Bullet.png" id="1_v7oki"]
-[ext_resource type="Script" uid="uid://y7sih77dj6hp" path="res://bullet.gd" id="1_v8qja"]
+[ext_resource type="Script" uid="uid://y7sih77dj6hp" path="res://scripts/bullet.gd" id="1_oduel"]
+[ext_resource type="Texture2D" uid="uid://dtb6xjy40lqpw" path="res://sprites/Bullet.png" id="2_ycag2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n7ghd"]
-atlas = ExtResource("1_v7oki")
+atlas = ExtResource("2_ycag2")
 region = Rect2(63, 16, 19, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v8qja"]
@@ -23,9 +23,9 @@ size = Vector2(16.5, 2)
 
 [node name="Bullet" type="Area2D" unique_id=587947668]
 position = Vector2(227, 120)
-script = ExtResource("1_v8qja")
+script = ExtResource("1_oduel")
 
-[node name="Bullet" type="AnimatedSprite2D" parent="." unique_id=1242260861]
+[node name="bullet" type="AnimatedSprite2D" parent="." unique_id=1242260861]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_v8qja")
 
