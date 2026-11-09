@@ -18,6 +18,18 @@ region = Rect2(68, 138, 16, 16)
 atlas = ExtResource("3_i3pqv")
 region = Rect2(21, 24, 17, 15)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkybt"]
+atlas = ExtResource("3_i3pqv")
+region = Rect2(53, 25, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3wgy"]
+atlas = ExtResource("3_i3pqv")
+region = Rect2(69, 23, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
+atlas = ExtResource("3_i3pqv")
+region = Rect2(85, 23, 16, 17)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_1jxqw"]
 atlas = ExtResource("1_4flbx")
 region = Rect2(84, 138, 16, 16)
@@ -54,6 +66,33 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_fkybt")
+}],
+"loop": 1,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3wgy")
+}],
+"loop": 1,
+"name": &"up_air",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3wgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3smsa")
+}],
+"loop": 1,
+"name": &"up_walk",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_2hs0m")
 }, {
 "duration": 1.0,
@@ -83,28 +122,31 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hs0m"]
-size = Vector2(12, 10.5)
+size = Vector2(13, 11)
 
 [node name="Player" type="CharacterBody2D" unique_id=46517785 groups=["PLayer"]]
 z_index = 1
 position = Vector2(231, 131)
+collision_layer = 2
 script = ExtResource("1_onrkg")
-metadata/_edit_group_ = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1649034671 groups=["PLayer"]]
 texture_filter = 1
-position = Vector2(4.7683716e-06, -5.9604645e-07)
+position = Vector2(1.0000049, -5.9604645e-07)
 scale = Vector2(1.1875002, 0.87500006)
 sprite_frames = SubResource("SpriteFrames_sweqy")
+animation = &"up_walk"
+frame_progress = 0.4124981
 
 [node name="gun" type="AnimatedSprite2D" parent="Sprite" unique_id=1467599352]
-position = Vector2(6.0301304, 1.7692308)
+z_as_relative = false
+position = Vector2(5.05263, 3.4285674)
 scale = Vector2(0.7451191, 0.70512825)
 sprite_frames = SubResource("SpriteFrames_2hs0m")
 animation = &"right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=86534766]
-position = Vector2(1, 1)
+position = Vector2(1.5, 0.5)
 shape = SubResource("RectangleShape2D_2hs0m")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=900111157]
@@ -116,4 +158,4 @@ drag_left_margin = 0.0
 drag_top_margin = 0.0
 
 [node name="Bullet" parent="." unique_id=587947668 instance=ExtResource("6_2hs0m")]
-position = Vector2(17, 2)
+position = Vector2(21, 2)

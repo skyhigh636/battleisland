@@ -3,18 +3,40 @@
 [ext_resource type="Script" uid="uid://y7sih77dj6hp" path="res://scripts/bullet.gd" id="1_oduel"]
 [ext_resource type="Texture2D" uid="uid://dtb6xjy40lqpw" path="res://sprites/Bullet.png" id="2_ycag2"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n7ghd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_oduel"]
 atlas = ExtResource("2_ycag2")
-region = Rect2(63, 16, 19, 16)
+region = Rect2(80, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_v8qja"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycag2"]
+atlas = ExtResource("2_ycag2")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2hb61"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n7ghd")
+"texture": SubResource("AtlasTexture_oduel")
 }],
 "loop": 1,
-"name": &"default",
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycag2")
+}],
+"loop": 1,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"up",
 "speed": 5.0
 }]
 
@@ -25,10 +47,13 @@ size = Vector2(16.5, 2)
 position = Vector2(227, 120)
 script = ExtResource("1_oduel")
 
-[node name="bullet" type="AnimatedSprite2D" parent="." unique_id=1242260861]
+[node name="projectile" type="AnimatedSprite2D" parent="." unique_id=1245490610]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_v8qja")
+sprite_frames = SubResource("SpriteFrames_2hb61")
+animation = &"right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1664955550]
 position = Vector2(-0.25, 0)
 shape = SubResource("RectangleShape2D_t4vbm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

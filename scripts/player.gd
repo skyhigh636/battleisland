@@ -10,8 +10,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var gun: AnimatedSprite2D = $Sprite/gun
 @onready var sprite: AnimatedSprite2D = $Sprite
-#@onready var bullet: Area2D = $Bullet
 
+# X Y LOGIC: 
+# Y: +10 IS DOWN -10 IS UP
+# X: +1 IS LEFT -1 IS RIGHT
 
 var facing_left := false
 
@@ -31,25 +33,49 @@ func reset_gun() -> void:
 
 func _process(delta:float) -> void:
 	if is_on_floor():
-		pass
+		reset_gun()
+		if Input.is_action_pressed("Up") && facing_left == false:
+			gun.rotation_degrees = -90
+			gun.position.y = -10
+			gun.position.x = +0.4
+		elif Input.is_action_pressed("Up") && facing_left == true:
+			gun.rotation_degrees = +90
+			gun.position.y = -10
+			gun.position.x = +0.4
+
 	else: 
 		
 		if Input.is_action_pressed("Down") && facing_left == false:
-			sprite.play("jump")
 			sprite.play("air_down")
 			gun.rotation_degrees = 90
-			gun.position.y = +10
-			gun.position.x = -0.5
-		elif Input.is_action_just_pressed("Down") && facing_left == true: 
+			gun.position.y = +6
+			gun.position.x = -0.4
+		elif Input.is_action_pressed("Down") && facing_left == true: 
 			sprite.play("jump")
 			sprite.play("air_down")
 			gun.rotation_degrees = -90
-			gun.position.y = +10
-			gun.position.x = -0.5
-		elif Input.is_action_just_released("Down"):
+			gun.position.y = +6
+			gun.position.x = -0.4
+		elif Input.is_action_just_released("Down") :
 			reset_gun()
 			sprite.play("jump")
+		elif Input.is_action_pressed("Up") && facing_left == false:
+			sprite.play("up_air")
+			gun.rotation_degrees = -90
+			gun.position.y = -10
+			gun.position.x = +0.4
+		elif Input.is_action_pressed("Up") && facing_left == true:
+			sprite.play("up_air")
+			gun.rotation_degrees = +90
+			gun.position.y = -10
+			gun.position.x = +0.4
+		elif Input.is_action_just_released("Up"):
+			reset_gun()
+			sprite.play("jump")
+		elif Input.is_action_pressed("Jump"):
+			sprite.play("jump")
 			
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -68,18 +94,14 @@ func _physics_process(delta: float) -> void:
 		
 		#shoot direction
 		var shoot_direction := Vector2.ZERO
-		if Input.is_action_just_pressed("Down"):
+		if Input.is_action_pressed("Down") and is_on_floor() == false:
 			shoot_direction = Vector2.DOWN
-			print(Vector2.DOWN)
-		elif Input.is_action_just_pressed("Up"):
+		elif Input.is_action_pressed("Up"):
 			shoot_direction = Vector2.UP
-			print(Vector2.UP)
 		elif facing_left:
 			shoot_direction = Vector2.LEFT
-			print(Vector2.LEFT)
 		elif facing_left ==false:
 			shoot_direction = Vector2.RIGHT
-			print(Vector2.RIGHT)
 		new_bullet.launch(shoot_direction)
 		
 	var direction := Input.get_axis("Left", "Right")
@@ -99,10 +121,15 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_floor():
 		if direction == 0:
-			sprite.play("default")
+			if Input.is_action_pressed("Up"):
+				sprite.play("up")
+			else:
+				sprite.play("default")
+		elif Input.is_action_pressed("Up"):
+			sprite.play("up_walk")
 		else:
 			sprite.play("walk")
-		
+
 	if direction:
 		velocity.x = direction * SPEED
 	else:
