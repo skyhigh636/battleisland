@@ -1,12 +1,12 @@
 class_name Player
 extends CharacterBody2D
 
-const SPEED = 200.0
-const JUMP_VELOCITY = -300.0
+const SPEED = 150.0
+const JUMP_VELOCITY = -350.0
+const JUMP_RELEASE_MULTIPLIER = 0.5
 var start_pos: Vector2
-
 var bullet_scene: PackedScene = preload("res://Scenes/bullet.tscn")
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+@onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var gun: AnimatedSprite2D = $Sprite/gun
 @onready var sprite: AnimatedSprite2D = $Sprite
@@ -20,6 +20,7 @@ var facing_left := false
 var gun_start_pos: Vector2
 
 func _ready() -> void:
+	floor_snap_length = 4.0
 	gun_start_pos = gun.position
 
 func reset_gun() -> void: 
@@ -85,6 +86,8 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	elif Input.is_action_just_released("Jump") and velocity.y < 0:
+		velocity.y *= JUMP_RELEASE_MULTIPLIER
 
 	if Input.is_action_just_pressed("Shoot"):
 		var new_bullet := bullet_scene.instantiate()
